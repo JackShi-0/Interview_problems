@@ -22,29 +22,35 @@
 
 #include <iostream>
 using namespace std;
-class A{
-public:
-    virtual void F(){cout << 1 << endl;}
-    void CallF(){F();}
-    virtual ~A(){CallF(); F();}
+class A {
+ public:
+  virtual void F() { cout << 1 << endl; }
+  void CallF() { F(); }
+  virtual ~A() {
+    CallF();
+    F();
+  }
 };
 
-class B : public A{
-public:
-    void F(){cout << 2 << endl;}
-    ~B(){}
+class B : public A {
+ public:
+  void F() { cout << 2 << endl; }
+  ~B() {}
 };
 
-class C : public B{
-public:
-    void F(){cout << 3 << endl;}
-    void CallF(){F(); A::CallF();}
-    ~C(){CallF();}
+class C : public B {
+ public:
+  void F() { cout << 3 << endl; }
+  void CallF() {
+    F();
+    A::CallF();
+  }
+  ~C() { CallF(); }
 };
 
-int main(){
-    A * p = new C();
-    p->CallF();
-    delete p;
-    return 0;
+int main() {
+  A* p = new C();
+  p->CallF();
+  delete p;
+  return 0;
 }
